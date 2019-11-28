@@ -27,7 +27,7 @@ static_path: dist/     # See https://www.quora.com/What-is-dist-folder-in-Angula
 templates: []          # Path to some jinja2 templates to render before building the application
 ```
 
-### Playook
+### Playbook
 
 ```
 ---
