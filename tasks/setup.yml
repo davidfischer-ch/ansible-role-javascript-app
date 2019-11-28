@@ -78,22 +78,14 @@
       when: ansible_check_mode
 
     - block:
-        - name: Create Python virtualenv
-          command: >
-            virtualenv -p python{{ jsapp_python_version }} --no-site-packages
-            {{ jsapp_directory }}/python_venv
-          args:
-            creates: '{{ jsapp_directory }}/python_venv'
-
-        # FIXME detect unchanged state
         - name: Install Application Python packages
           pip:
-            executable: '{{ jsapp_directory }}/python_venv/bin/pip'
             name: '{{ jsapp_python_packages }}'
             state: present
             umask: '{{ jsapp_pip_umask }}'
+            virtualenv: '{{ jsapp_directory }}/python_venv'
+            virtualenv_python: python{{ jsapp_python_version }}
           environment: '{{ jsapp_pip_environment }}'
-          loop: '{{ jsapp_python_packages }}'
 
         - name: Detect Node virtualenv version
           command: >
