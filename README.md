@@ -58,8 +58,10 @@ templates: []          # Path to some jinja2 templates to render before building
 
       PATH: "{{ jsapp_node_env_paths|join(':') }}"
 
+    jsapp_before_build_tasks_file: ''
     jsapp_hosting_implementation: none
     jsapp_instance_name: my-awesome-app
+    jsapp_role_action: setup
 
     jsapp_repository_url: git@gitlab.your-corp.com:A-PROJECT/my-awesome-angular-or-react-or-vue-app.git
     jsapp_repository_host: gitlab.your-corp.com
