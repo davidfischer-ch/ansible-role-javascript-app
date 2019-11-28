@@ -107,7 +107,7 @@ Any valid value in `jsapp_role_actions`:
 
 - `run`: Deliver the application (once build) using a basic Python HTTP Server.
 - `setup`: Build and upload the application.
-- `upload`: Upload the application (must be already build).
+- `upload`: Upload the application (must be already built).
 
 Please do this:
 ```
