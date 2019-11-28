@@ -22,7 +22,8 @@
     - debug:
         var: '{{ item }}'
       loop:
-        - jsapp_release_directory
+        - jsapp_directory
         - jsapp_repository_is_local
+        - jsapp_repository_url
         - jsapp_version
   tags: always

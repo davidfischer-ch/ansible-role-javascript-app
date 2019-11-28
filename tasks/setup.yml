@@ -9,6 +9,7 @@
       loop:
         - { name: '{{ jsapp_directory }}',      mode: 750 }
         - { name: '{{ jsapp_directory }}/.ssh', mode: 700 }
+        - { name: '{{ jsapp_directory }}/.tmp', mode: 700 }
       loop_control:
         label: '{{ item.name }}'
 
@@ -42,6 +43,9 @@
         force: yes
         key_file: '{{ jsapp_directory }}/.ssh/id_rsa'
         version: '{{ jsapp_version }}'
+      environment:
+        # Workaroud for https://github.com/ansible/ansible/issues/33947
+        TMPDIR: '{{ jsapp_directory }}/.tmp'
       when: not jsapp_repository_is_local|bool
       # FIXME Temporary hack to fix issue with git module
       delay: 1
