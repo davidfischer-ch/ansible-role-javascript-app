@@ -11,5 +11,21 @@
     - set_fact:
         jsapp_repository_is_local: "{{ '://' not in jsapp_repository_url }}"
 
+    - assert:
+        that:
+          - jsapp_repository_host is defined
+          - jsapp_repository_key is defined
+          - jsapp_ssh_key_private is defined
+          - jsapp_ssh_key_public is defined
+          - jsapp_version is defined
+      when: not jsapp_repository_is_local|bool
+
     - include_tasks: facts-{{ jsapp_hosting_implementation }}.yml
+
+    - debug:
+        var: '{{ item }}'
+      loop:
+        - jsapp_release_directory
+        - jsapp_repository_is_local
+        - jsapp_version
   tags: always
