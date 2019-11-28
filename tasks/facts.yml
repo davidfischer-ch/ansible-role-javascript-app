@@ -8,10 +8,6 @@
           - jsapp_repository_url is defined
           - jsapp_role_action in jsapp_role_actions
 
-    # FIXME temporary cheat
-    - set_fact:
-        jsapp_source_checksum: 42
-
     - set_fact:
         jsapp_repository_is_local: "{{ '://' not in jsapp_repository_url }}"
 
