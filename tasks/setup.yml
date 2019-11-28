@@ -87,8 +87,12 @@
 
         # FIXME detect unchanged state
         - name: Install Application Python packages
-          command: >
-            {{ jsapp_directory }}/python_venv/bin/pip install {{ item }}
+          pip:
+            executable: '{{ jsapp_directory }}/python_venv/bin/pip'
+            name: '{{ jsapp_python_packages }}'
+            state: present
+            umask: '{{ jsapp_pip_umask }}'
+          environment: '{{ jsapp_pip_environment }}'
           loop: '{{ jsapp_python_packages }}'
 
         - name: Detect Node virtualenv version

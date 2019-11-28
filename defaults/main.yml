@@ -3,6 +3,9 @@ jsapp_python_packages:
   - nodeenv
 jsapp_python_version: '{{ python_versions|first }}'
 
+jsapp_pip_environment: '{{ python_pip_environment }}'
+jsapp_pip_umask: '{{ python_pip_umask }}'
+
 # clone parameters
 jsapp_repository_is_local: "{{ '://' not in jsapp_repository_url and 'git@' not in jsapp_repository_url }}"
 
