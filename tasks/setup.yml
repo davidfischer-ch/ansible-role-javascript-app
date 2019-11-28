@@ -78,6 +78,7 @@
       when: ansible_check_mode
 
     - block:
+        # Be aware of https://bugs.python.org/issue34224
         - name: Install Application Python packages
           pip:
             name: '{{ jsapp_python_packages }}'
@@ -103,8 +104,9 @@
           register: _jsapp_venv_version
 
         - name: Flush Node virtualenv
-          file: >
-            name={{ jsapp_directory }}/node_venv state=absent
+          file:
+            name: '{{ jsapp_directory }}/node_venv'
+            state: absent
           when: _jsapp_venv_version is change
 
         - name: Create Node virtualenv
