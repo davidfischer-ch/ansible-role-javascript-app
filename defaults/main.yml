@@ -11,3 +11,6 @@ jsapp_repository_is_local: "{{ '://' not in jsapp_repository_url and 'git@' not 
 # build parameters
 jsapp_directory: '{{ ansible_user_dir }}/js_apps/{{ jsapp_instance_name }}'
 jsapp_production_mode: yes
+
+jsapp_node_environment:
+  PATH: "{{ jsapp_node_env_paths|join(':') }}"

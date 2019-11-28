@@ -116,6 +116,7 @@
               {{ jsapp_directory }}/node_venv
           args:
             creates: '{{ jsapp_directory }}/node_venv'
+          environment: '{{ jsapp_node_environment }}'
       tags: virtualenv
 
     - name: Install Application requirements
