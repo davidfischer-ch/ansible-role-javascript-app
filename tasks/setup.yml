@@ -122,10 +122,9 @@
       tags: virtualenv
 
     - name: Install Application requirements
-      command: >
-        {{ jsapp_directory }}/node_venv/bin/npm install
-      args:
-        chdir: '{{ jsapp_directory }}/build/{{ jsapp_config.source_path }}'
+      npm:
+        executable: '{{ jsapp_directory }}/node_venv/bin/npm'
+        path: '{{ jsapp_directory }}/build/{{ jsapp_config.source_path }}'
       environment: '{{ jsapp_node_environment }}'
 
     - name: Trigger before-build hook
