@@ -81,10 +81,13 @@ You must set the value of those variables ...
 
 Any valid value in `jsapp_hosting_implementations`:
 
+- `local`: Copy to a local directory (can be a NFS volume mounted locally too).
 - `none`: Do nothing.
 - `s3`: Upload on an AWS S3 bucket.
 
 If hosting on a S3 bucket, then you must define extra variables (see [Required If Hosting On AWS S3](#required-if-hosting-on-aws-s3)).
+
+If hosting locally, then you must define extra variables (see [Required If Hosting Locally](#required-if-hosting-locally)).
 
 #### Variable `jsapp_instance_name`
 
@@ -197,6 +200,41 @@ Path to the public key used to clone the application source code (e.g. GitLab de
 #### Variable `jsapp_version`
 
 Which version (commit, branch, tag) to checkout (only relevant if cloning from a Git repository).
+
+### Required If Hosting Locally
+
+Required only if `jsapp_hosting_implementation` is set to `local`.
+
+Example:
+
+```
+jsapp_hosting_implementation: local
+jsapp_local_target_directory: /var/www-static/{{ jsapp_instance_name }}
+jsapp_local_target_owner: root
+jsapp_local_target_group: root
+jsapp_local_target_mode: ugo=rX  # 555 for directories, 444 for files
+# The web server (nginx, whatever) will not be able to modify content
+```
+
+#### Variable `jsapp_local_target_directory`
+
+TODO
+
+#### Variable `jsapp_local_target_group`
+
+TODO
+
+#### Variable `jsapp_local_target_mode`
+
+TODO
+
+#### Variable `jsapp_local_target_owner`
+
+TODO
+
+#### Variable `jsapp_local_target_rsync_opts`
+
+TODO
 
 ### Required If Hosting On AWS S3
 

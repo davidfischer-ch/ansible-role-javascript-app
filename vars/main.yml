@@ -5,6 +5,7 @@ jsapp_deploy_check_mode_rsync_opts:
   - --exclude=/package-lock.json
 
 jsapp_hosting_implementations:
+  - local
   - none
   - s3
 

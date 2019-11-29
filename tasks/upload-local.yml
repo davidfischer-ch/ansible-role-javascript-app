@@ -1,0 +1,27 @@
+---
+
+- block:
+    - name: Create local target directory
+      file:
+        path: '{{ jsapp_local_target_directory }}'
+        owner: '{{ jsapp_local_target_owner }}'
+        group: '{{ jsapp_local_target_group }}'
+        mode: '{{ jsapp_local_target_mode }}'
+        state: directory
+
+    - name: Upload to local target directory
+      command: >
+        rsync {{ jsapp_directory }}/build/{{ jsapp_config.static_path }}/ {{ jsapp_local_target_directory }}/
+        {{ ansible_check_mode|ternary('--dry-run', '') }} {{ jsapp_local_target_rsync_opts|join(' ') }}
+        --owner --group --chown={{ jsapp_local_target_owner }}:{{ jsapp_local_target_group }}
+        --chmod={{ jsapp_local_target_mode }}
+        --archive --checksum --copy-links --delete --progress
+      check_mode: no
+      changed_when: _jsapp_rsync.stdout_lines|length > 2
+      register: _jsapp_rsync
+
+    - debug:
+        var: _jsapp_rsync
+      when: ansible_check_mode
+  become: yes
+  tags: [javascript-app, update, upload] # FIXME Remove when this is fixed https://github.com/ansible/ansible/issues/30882
