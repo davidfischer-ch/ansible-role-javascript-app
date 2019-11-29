@@ -67,7 +67,7 @@
     - name: Deploy Application source code
       command: >
         rsync {{ jsapp_directory }}/source/ {{ jsapp_directory }}/build/
-         {{ ansible_check_mode|ternary('--dry-run --exclude=/dist --exclude=/node_modules --exclude=/package-lock.json', '') }}
+        {{ ansible_check_mode|ternary(jsapp_deploy_check_mode_rsync_opts, [])|join(' ') }}
         --archive --checksum --delete --hard-links --links --progress
       check_mode: no
       changed_when: _jsapp_rsync.stdout_lines|length > 2
