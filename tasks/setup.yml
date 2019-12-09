@@ -78,7 +78,14 @@
       when: ansible_check_mode
 
     - block:
-        # Be aware of https://bugs.python.org/issue34224
+        - name: Hack for https://bugs.python.org/issue34224
+          file:
+            path: /usr/local/lib/python{{ jsapp_python_version }}/lib2to3/
+            mode: o+rw
+            recurse: yes
+          become: yes
+          when: jsapp_pip_hack_enabled|bool
+
         - name: Install Application Python packages
           pip:
             name: '{{ jsapp_python_packages }}'
@@ -87,6 +94,14 @@
             virtualenv: '{{ jsapp_directory }}/python_venv'
             virtualenv_python: python{{ jsapp_python_version }}
           environment: '{{ jsapp_pip_environment }}'
+
+        - name: Revert hack for https://bugs.python.org/issue34224
+          file:
+            path: /usr/local/lib/python{{ jsapp_python_version }}/lib2to3/
+            mode: o+rw
+            recurse: yes
+          become: yes
+          when: jsapp_pip_hack_enabled|bool
 
         - name: Detect Node virtualenv version
           command: >
