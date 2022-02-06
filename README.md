@@ -1,9 +1,9 @@
-# Ansible Role javascript-app
+# Ansible Role JavaScript App
 
 Library of Ansible plugins and roles for deploying various services.
 See [ansible-roles](https://github.com/davidfischer-ch/ansible-roles) for additional documentation.
 
-This repository hosts the role javascript-app and may depend of other roles and plugins of the library.
+This repository hosts the role JavaScript App and may depend of other roles and plugins of the library.
 
 This role streamline operating a JavaScript front-end application (cloning, building, uploading, ...).
 
