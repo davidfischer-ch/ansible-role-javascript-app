@@ -7,9 +7,9 @@
         mode: '{{ item.mode }}'
         state: directory
       loop:
-        - { name: '{{ jsapp_directory }}',      mode: 0750 }
-        - { name: '{{ jsapp_directory }}/.ssh', mode: 0700 }
-        - { name: '{{ jsapp_directory }}/.tmp', mode: 0700 }
+        - { name: '{{ jsapp_directory }}',      mode: '750' }
+        - { name: '{{ jsapp_directory }}/.ssh', mode: '700' }
+        - { name: '{{ jsapp_directory }}/.tmp', mode: '700' }
       loop_control:
         label: '{{ item.name }}'
 
@@ -18,7 +18,7 @@
           copy:
             src: '{{ item.path }}'
             dest: '{{ jsapp_directory }}/.ssh/{{ item.name }}'
-            mode: 0600
+            mode: '600'
           diff: not item.hidden|bool
           loop:
             - { path: '{{ jsapp_ssh_key_private }}', name: id_rsa,     hidden: yes }
