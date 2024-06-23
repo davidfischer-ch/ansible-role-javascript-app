@@ -92,7 +92,7 @@
             state: present
             umask: '{{ jsapp_pip_umask }}'
             virtualenv: '{{ jsapp_directory }}/python_venv'
-            virtualenv_python: python{{ jsapp_python_version }}
+            virtualenv_command: python{{ jsapp_python_version }} -m venv
           environment: '{{ jsapp_pip_environment }}'
 
         - name: Revert hack for https://bugs.python.org/issue34224
